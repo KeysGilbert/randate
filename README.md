@@ -1,16 +1,5 @@
 # randate
 
-A new Flutter project.
+Ever had trouble deciding on what to do with your partner? Maybe you're not too creative, maybe you're too busy to think or just drawing a blank. With this simple app, you don't have to worry about that. Just press a button!
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Randate will randomly choose a date idea for you. Some of these ideas are already preinstalled into the app. But as the mood strikes you, you can add some of your own ideas to the pool to choose from!
