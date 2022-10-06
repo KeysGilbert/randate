@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Color(0xffff4d4d),
+                    color: Color(0xffff4d4d),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0))),
@@ -29,11 +29,17 @@ class HomePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: null,
                   style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.lightBlueAccent)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.lightBlueAccent),
+                    fixedSize: MaterialStateProperty.all<Size>(Size(100, 50)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0))),
+                            elevation: MaterialStateProperty.all<double>(10.0)
+                  ),
                   child: Text(
                     'SPIN',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
                   ),
                 ),
               ))
