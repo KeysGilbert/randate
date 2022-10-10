@@ -1,39 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:randate/popupmenu.dart';
 import 'package:randate/screens/view_page.dart';
 
 class HomePage extends StatelessWidget {
-  Widget PopupMenu() {
-    if (Platform.isIOS) {
-      return CupertinoActionSheet();
-    }
 
 
-    //need Builder to get context of the popup menu
-    return Builder(
-      builder: (context) {
-        return PopupMenuButton(
-          itemBuilder: (context) => [
-            PopupMenuItem(value: 1, child: Text('View')),
-            PopupMenuItem(value: 2, child: Text('Add'))
-          ],
-          onSelected: (value) {
-            switch (value) {
-              case 1:
-                Navigator.push(context,
-                     MaterialPageRoute(builder: ((context) => ViewPage())));
-                break;
-              case 2:
-                null; //will fill in later for adding to list of dates
-                break;
-            }
-          },
-        );
-      }
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +24,7 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     SafeArea(
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: PopupMenu(),
-                      ),
+                      child: PopupMenu()
                     ),
                     Expanded(
                       child: Center(
