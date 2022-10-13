@@ -1,11 +1,26 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:randate/popupmenu.dart';
 import 'package:randate/screens/view_page.dart';
+import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  StreamController<int> controller =
+      StreamController<int>(); //used for controlling the fortune wheel
+  List<String> items = ["???," "???," "???," "???," "???," "???,"];
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.close();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +38,21 @@ class HomePage extends StatelessWidget {
                         bottomRight: Radius.circular(20.0))),
                 child: Column(
                   children: <Widget>[
-                    SafeArea(
-                      child: PopupMenu()
-                    ),
+                    SafeArea(child: PopupMenu()),
                     Expanded(
                       child: Center(
-                        child: Text('just a placeholder',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0)),
+                        child: FortuneWheel(
+                            animateFirst: false,
+                            selected: controller.stream,
+                            items: [
+                              for (int i = 0;
+                                  i < items.length;
+                                  i++) ...<FortuneItem>{
+                                FortuneItem(
+                                    child: Text(items[i]
+                                        .toString())) //populate list of fortune items
+                              }
+                            ]),
                       ),
                     ),
                   ],
@@ -44,7 +64,12 @@ class HomePage extends StatelessWidget {
                 alignment: Alignment.center,
                 color: Colors.white,
                 child: ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {
+                    setState(() {
+                      controller.add(Fortune.randomInt(
+                          0, items.length)); //random value from items list
+                    });
+                  },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Colors.lightBlueAccent),
