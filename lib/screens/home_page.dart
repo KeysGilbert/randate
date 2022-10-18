@@ -13,7 +13,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   StreamController<int> controller =
       StreamController<int>(); //used for controlling the fortune wheel
-  List<String> items = ["???," "???," "???," "???," "???," "???,"];
+  
+  List<String> items = ["???", "???", "???", "???", "???", "???"];
+
 
   @override
   void dispose() {
@@ -41,8 +43,12 @@ class _HomePageState extends State<HomePage> {
                     SafeArea(child: PopupMenu()),
                     Expanded(
                       child: Center(
-                        child: FortuneWheel(
+                        child: Container(
+                          width: 300,
+                          height: 300,
+                          child: FortuneWheel(
                             animateFirst: false,
+                            duration: Duration(seconds: 3),
                             selected: controller.stream,
                             items: [
                               for (int i = 0;
@@ -50,9 +56,11 @@ class _HomePageState extends State<HomePage> {
                                   i++) ...<FortuneItem>{
                                 FortuneItem(
                                     child: Text(items[i]
-                                        .toString())) //populate list of fortune items
-                              }
-                            ]),
+                                        .toString())), //populate list of fortune items
+                              },
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ],
