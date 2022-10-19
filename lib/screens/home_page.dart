@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:randate/popupmenu.dart';
+import 'package:randate/screens/result_page.dart';
 import 'package:randate/screens/view_page.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 
@@ -13,9 +13,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   StreamController<int> controller =
       StreamController<int>(); //used for controlling the fortune wheel
-  
-  List<String> items = ["???", "???", "???", "???", "???", "???"];
 
+  List<String> items = ["???", "???", "???", "???", "???", "???"];
 
   @override
   void dispose() {
@@ -77,6 +76,8 @@ class _HomePageState extends State<HomePage> {
                       controller.add(Fortune.randomInt(
                           0, items.length)); //random value from items list
                     });
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ResultPage()));
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
