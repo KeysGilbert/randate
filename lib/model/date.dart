@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Date {
-  List _dates = [];
+  final _url =
+      "https://www.boredapi.com/api/activity?type=recreational&participants=1";
 
-  //Even though some are meant for 1 participant, most can easily be done with a partner
-  var _uri = Uri.parse(
-      "https://www.boredapi.com/api/activity?type=recreational&participants=1");
+  Future getData() async {
+    var uri = Uri.parse(_url);
 
-  Future<http.Response> getData() async {
     //get data from BoredAPI
-    final response = await http.get(_uri);
+    var response = await http.get(uri);
 
     //check if successful
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      var decodedData = jsonDecode(response.body);
+      return decodedData;
     } else {
-      throw Exception("Data could not be fetched!");
+      throw Exception("Could not retrive data.");
     }
   }
 
