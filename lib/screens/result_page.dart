@@ -14,7 +14,7 @@ class _ResultPageState extends State<ResultPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<Date>(context, listen: false).getActivityData();
+    Provider.of<Date>(context, listen: false).awaitActivityData();
   }
 
   @override
