@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> {
       StreamController<int>(); //used for controlling the fortune wheel
 
   List<String> items = ["???", "???", "???", "???", "???", "???"];
+  int spinDuration = 3;
 
   @override
   void dispose() {
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                           height: 300,
                           child: FortuneWheel(
                             animateFirst: false,
-                            duration: Duration(seconds: 3),
+                            duration: Duration(seconds: spinDuration),
                             selected: controller.stream,
                             items: [
                               for (int i = 0;
@@ -75,9 +76,15 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       controller.add(Fortune.randomInt(
                           0, items.length)); //random value from items list
+
+                      //give wheel time to spin before navigating
+                      Timer(
+                          Duration(seconds: spinDuration),
+                          (() => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ResultPage()))));
                     });
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ResultPage()));
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
