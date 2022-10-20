@@ -7,7 +7,8 @@ class Date extends ChangeNotifier {
   final _url =
       "https://www.boredapi.com/api/activity?type=recreational&participants=1";
 
-  late var activityData;
+  late var _activityData;
+ 
 
   Future getData() async {
     var uri = Uri.parse(_url);
@@ -25,9 +26,11 @@ class Date extends ChangeNotifier {
   }
 
 //helper method to wait for that future data from getData()
-  void getActivityData() async {
+  void awaitActivityData() async {
     //await for decoded data
-    activityData = await getData();
+    _activityData = await getData();
     notifyListeners();
   }
+
+  dynamic get activityData => _activityData;
 }
