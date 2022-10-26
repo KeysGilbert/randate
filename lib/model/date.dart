@@ -19,9 +19,7 @@ class Date extends ChangeNotifier {
     //check if successful
     if (response.statusCode == 200) {
       var decodedData = jsonDecode(response.body);
-
-      //store in list for displaying on ViewPage
-    dateList = decodedData['activity'] as List;
+      
       return decodedData;
     } else {
       throw Exception("Could not retrive data.");
@@ -32,6 +30,9 @@ class Date extends ChangeNotifier {
   void awaitActivityData() async {
     //await for decoded data
     _activityData = await getData();
+
+    //store in list for use in ViewPage
+    dateList = _activityData['activity'] as List;
     notifyListeners();
   }
 
