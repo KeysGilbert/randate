@@ -8,7 +8,7 @@ class Date extends ChangeNotifier {
       "https://www.boredapi.com/api/activity?type=recreational&participants=1";
 
   late var _activityData;
- 
+  late List<dynamic> dateList = [];
 
   Future getData() async {
     var uri = Uri.parse(_url);
@@ -19,6 +19,9 @@ class Date extends ChangeNotifier {
     //check if successful
     if (response.statusCode == 200) {
       var decodedData = jsonDecode(response.body);
+
+      //store in list for displaying on ViewPage
+    dateList = decodedData['activity'] as List;
       return decodedData;
     } else {
       throw Exception("Could not retrive data.");
