@@ -20,7 +20,7 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text(Provider.of<Date>(context).activityData['activity']),
+      body: Center(child: Text(Provider.of<Date>(context).activityData['activity'])),
     );
   }
 }
