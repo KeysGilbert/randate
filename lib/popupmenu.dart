@@ -11,7 +11,17 @@ class PopupMenu extends StatelessWidget {
     return Align(
       alignment: Alignment.topRight,
       child: Platform.isIOS
-          ? CupertinoActionSheet() //will fill in later
+          ? CupertinoActionSheet(
+              actions: [
+                CupertinoActionSheetAction(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ViewPage()));
+                    },
+                    child: Text("View")),
+                   //second option could be another sheet?
+              ],
+            )
           : PopupMenuButton(
               itemBuilder: (context) => [
                     PopupMenuItem(value: 1, child: Text('View')),
@@ -24,7 +34,7 @@ class PopupMenu extends StatelessWidget {
                         MaterialPageRoute(builder: ((context) => ViewPage())));
                     break;
                   case 2:
-                    null; //will fill in later for adding to list of dates
+                    null; //possibly use modal bottomsheet instead of entire page
                     break;
                 }
               }),
