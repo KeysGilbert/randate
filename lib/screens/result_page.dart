@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:randate/model/date.dart';
+import 'dart:math';
 
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
@@ -20,7 +21,11 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(Provider.of<Date>(context).activityData['activity'])),
+      body: Center(
+        child: Consumer<Date>(
+            builder: (context, date, child) =>
+                Text(date.dateList[Random().nextInt(date.dateList.length)])),
+      ),
     );
   }
 }
