@@ -13,9 +13,7 @@ class _ViewPageState extends State<ViewPage> {
     // TODO: implement initState
     super.initState();
 
-    // I could probably do this with a regular Date object,
-    // this is just me trying to get more practice with Provider, that's all.
-    Provider.of<Date>(context, listen: false).awaitActivityData(); //this line may need to be removed or adjusted
+
   }
 
   @override
