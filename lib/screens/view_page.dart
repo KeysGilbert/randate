@@ -28,6 +28,9 @@ class _ViewPageState extends State<ViewPage> {
               return Dismissible(
                   key: UniqueKey(),
                   direction: DismissDirection.horizontal,
+                  onDismissed: (direction) {
+                    date.dateList.removeAt(index);
+                  },
                   child: ListTile(
                     title: Text(date.dateList[index])
                   ));
