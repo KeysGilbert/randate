@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'screens/view_page.dart';
+import 'screens/add_date_page.dart';
 
 class PopupMenu extends StatelessWidget {
   const PopupMenu({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class PopupMenu extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => ViewPage()));
                     },
                     child: Text("View")),
-                   //second option could be another sheet?
+                //second option could be another sheet?
               ],
             )
           : PopupMenuButton(
@@ -34,7 +35,9 @@ class PopupMenu extends StatelessWidget {
                         MaterialPageRoute(builder: ((context) => ViewPage())));
                     break;
                   case 2:
-                    null; //possibly use modal bottomsheet instead of entire page
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) => SafeArea(child: AddDatePage()));
                     break;
                 }
               }),
