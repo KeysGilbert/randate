@@ -20,6 +20,13 @@ class PopupMenu extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => ViewPage()));
                     },
                     child: Text("View")),
+                CupertinoActionSheetAction(
+                  onPressed: (() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AddDatePage()));
+                  }),
+                  child: Text("Add"),
+                )
                 //second option could be another sheet?
               ],
             )
