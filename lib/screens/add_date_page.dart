@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:randate/model/date.dart';
 
-class AddDatePage extends StatelessWidget {
+class AddDatePage extends StatefulWidget {
+  @override
+  State<AddDatePage> createState() => _AddDatePageState();
+}
+
+class _AddDatePageState extends State<AddDatePage> {
   final _controller = TextEditingController();
+
   late String newDate;
 
   @override
