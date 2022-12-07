@@ -15,6 +15,14 @@ class _HomePageState extends State<HomePage> {
       StreamController<int>(); //used for controlling the fortune wheel
 
   List<String> items = ["???", "???", "???", "???", "???", "???"];
+  List<Color> colors = [
+    Color(0xFFFFCDD2),
+    Color(0xFFEF9A9A),
+    Color(0xFFE57373),
+    Color(0xFFEF5350),
+    Color(0XFFE53935),
+    Color(0xFFD32F2F)
+  ];
   int spinDuration = 3;
 
   @override
@@ -34,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: Color(0xffff4d4d),
+                  gradient: LinearGradient(colors: [Color(0xFFd32f2f), Color(0xFFFFCDD2)], begin: Alignment.centerLeft, end: Alignment.centerRight),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0))),
@@ -55,6 +63,7 @@ class _HomePageState extends State<HomePage> {
                                   i < items.length;
                                   i++) ...<FortuneItem>{
                                 FortuneItem(
+                                    style: FortuneItemStyle(color: colors[i]),
                                     child: Text(items[i]
                                         .toString())), //populate list of fortune items
                               },
