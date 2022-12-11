@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:randate/model/date.dart';
-import 'screens/home_page.dart';
+import 'controller/date.dart';
+import 'view/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
