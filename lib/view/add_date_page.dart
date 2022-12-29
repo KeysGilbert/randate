@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:randate/controller/date.dart';
+import 'package:randate/controller/db_helper.dart';
+import 'package:randate/model/date_model.dart';
 
 class AddDatePage extends StatefulWidget {
   @override
@@ -45,19 +47,22 @@ class _AddDatePageState extends State<AddDatePage> {
                 },
               ),
               TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     _controller.clear();
-    
+
                     //add input to list of dates
                     Provider.of<Date>(context, listen: false)
                         .dateList
                         .add(newDate);
-    
+
                     //show snackbar notifying that date was added
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: Duration(seconds: 2),
                         backgroundColor: Colors.black12,
                         content: Text("Date added!")));
+
+                    //add input to database
+                    await DatabaseHelper.instance.add(DateModel(dateText: newDate));
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.lightBlueAccent,

@@ -5,6 +5,10 @@ import 'package:randate/model/date_model.dart';
 class DatabaseHelper {
   static Database? _db;
 
+  //create singleton
+  DatabaseHelper._constructor();
+  static final DatabaseHelper instance = DatabaseHelper._constructor();
+
   Future<Database> get db async {
     return _db ??= await init_db("Date.db");
   }
@@ -19,5 +23,18 @@ class DatabaseHelper {
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
-  //TO-DO: implement _onCreate() to execute DDL
+  //Create date table
+  Future _onCreate(Database db, int version) async {
+    await db
+        .execute("CREATE TABLE Dates (id INTEGER PRIMARY KEY, dateText TEXT)");
+  }
+
+  //add user input to table
+  Future add(DateModel dateModel) async {
+    Database db = await instance.db;
+    return await db.insert("Dates", dateModel.toMap());
+  }
+
+  //TO-DO: remove date from table
+  
 }
