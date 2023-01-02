@@ -38,6 +38,6 @@ class DatabaseHelper {
   //TO-DO: remove date from table
   Future<int> remove(int id) async {
     Database db = await instance.db;
-    return await db.delete("Dates", where: "id = $id");
+    return await db.delete("Dates", where: "id = ?", whereArgs: [id]);
   }
 }
