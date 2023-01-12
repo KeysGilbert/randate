@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:randate/model/date_model.dart';
+import 'package:flutter/foundation.dart';
 
 class DatabaseHelper {
   static Database? _db;
@@ -39,5 +40,15 @@ class DatabaseHelper {
   Future<int> remove(int id) async {
     Database db = await instance.db;
     return await db.delete("Dates", where: "id = ?", whereArgs: [id]);
+  }
+
+  Future<List> getDates() async {
+    Database db = await instance.db;
+    final data = await db.rawQuery("SELECT dateText FROM Dates");
+    if (data.isNotEmpty) {
+      return data;
+    } else {
+      return [];
+    }
   }
 }
