@@ -36,30 +36,40 @@ class _ViewPageState extends State<ViewPage>
   Widget build(BuildContext context) {
     return Consumer<Date>(builder: (context, date, child) {
       return Scaffold(
-        body: ListView.builder(
-            shrinkWrap: true,
-            itemCount: date.dateList.length,
-            itemBuilder: (context, index) {
-              return SlideTransition(
-                position: Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0))
-                    .animate(CurvedAnimation(
-                        parent: _controller, curve: Curves.bounceIn)),
-                child: Dismissible(
-                    key: UniqueKey(),
-                    direction: DismissDirection.horizontal,
-                    onDismissed: (direction) {
-                      final dateModel =
-                          DateModel(dateText: date.dateList[index]);
-                          
-                      //remove from list
-                      date.dateList.removeAt(index);
+        body: FutureBuilder(
+          future: DatabaseHelper.instance.getDates(),
+          builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+            if (!snapshot.hasData || snapshot.connectionState != ConnectionState.done) {
+              return CircularProgressIndicator();
+            }
 
-                      //TO-DO: remove from database
-                      DatabaseHelper.instance.remove(dateModel.id!);
-                    },
-                    child: ListTile(title: Text(date.dateList[index]))),
-              );
-            }),
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return SlideTransition(
+                    position:
+                        Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0))
+                            .animate(CurvedAnimation(
+                                parent: _controller, curve: Curves.bounceIn)),
+                    child: Dismissible(
+                        key: UniqueKey(),
+                        direction: DismissDirection.horizontal,
+                        onDismissed: (direction) {
+                          final dateModel =
+                              DateModel(dateText: date.dateList[index]);
+
+                          //remove from list
+                          date.dateList.removeAt(index);
+
+                          //TO-DO: remove from database
+                          DatabaseHelper.instance.remove(dateModel.id!);
+                        },
+                        child: ListTile(title: Text(snapshot.data![index].toString()))),
+                  );
+                });
+          },
+        ),
       );
     });
   }
