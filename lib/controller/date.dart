@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:randate/controller/db_helper.dart';
+import 'package:randate/model/date_model.dart';
 
 class Date extends ChangeNotifier {
   final _url =
@@ -9,7 +11,6 @@ class Date extends ChangeNotifier {
 
   var _activityData;
   List<dynamic> dateList = ["Go see a movie"];
-  
 
   Future getData() async {
     var uri = Uri.parse(_url);
@@ -34,6 +35,10 @@ class Date extends ChangeNotifier {
     //add activity to list
     dateList.add(_activityData['activity']);
     notifyListeners();
+
+    //add to database
+    await DatabaseHelper.instance
+        .add(DateModel(dateText: _activityData['activity']));
   }
 
   dynamic get activityData => _activityData;
