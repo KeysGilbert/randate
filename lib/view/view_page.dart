@@ -55,15 +55,15 @@ class _ViewPageState extends State<ViewPage>
                     child: Dismissible(
                         key: UniqueKey(),
                         direction: DismissDirection.horizontal,
-                        onDismissed: (direction) {
+                        onDismissed: (direction) async {
                           final dateModel =
                               DateModel(dateText: date.dateList[index]);
 
                           //remove from list
                           date.dateList.removeAt(index);
 
-                          //TO-DO: remove from database
-                          DatabaseHelper.instance.remove(dateModel.id!);
+                        //remove from database
+                         await DatabaseHelper.instance.remove(dateModel.id!);
                         },
                         child: ListTile(title: Text(snapshot.data![index].toString()))),
                   );
