@@ -1,6 +1,6 @@
 class DateModel {
   //define schema
-  final int? id;
+  int? id;
   final String dateText;
 
   DateModel({this.id, required this.dateText});

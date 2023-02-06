@@ -33,10 +33,10 @@ class DatabaseHelper {
   //add user input to table
   Future<int> add(DateModel dateModel) async {
     Database db = await instance.db;
-    return await db.insert("Dates", dateModel.toMap());
+    return dateModel.id = await db.insert("Dates", dateModel.toMap());
   }
 
-  //TO-DO: remove date from table
+  //remove date from table
   Future<int> remove(int id) async {
     Database db = await instance.db;
     return await db.delete("Dates", where: "id = ?", whereArgs: [id]);
