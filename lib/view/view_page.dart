@@ -39,7 +39,8 @@ class _ViewPageState extends State<ViewPage>
         body: FutureBuilder(
           future: DatabaseHelper.instance.getDates(),
           builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-            if (!snapshot.hasData || snapshot.connectionState != ConnectionState.done) {
+            if (!snapshot.hasData ||
+                snapshot.connectionState != ConnectionState.done) {
               return CircularProgressIndicator();
             }
 
@@ -55,17 +56,25 @@ class _ViewPageState extends State<ViewPage>
                     child: Dismissible(
                         key: UniqueKey(),
                         direction: DismissDirection.horizontal,
-                        onDismissed: (direction) async {
+                        onDismissed: (direction) {
+                          /*
                           final dateModel =
-                              DateModel(dateText: date.dateList[index]);
+                              DateModel(dateText: date.dateList[index]); */
+
+                          Map<String, dynamic> dateJson =
+                              snapshot.data![index] as Map<String, dynamic>;
+                          DateModel dateModel = DateModel.fromMap(dateJson);
 
                           //remove from list
                           date.dateList.removeAt(index);
 
-                        //remove from database
-                         await DatabaseHelper.instance.remove(dateModel.id!);
+                          snapshot.data!.removeAt(index);
+
+                          //remove from database
+                          DatabaseHelper.instance.remove(dateModel.id!);
                         },
-                        child: ListTile(title: Text(snapshot.data![index].toString()))),
+                        child: ListTile(
+                            title: Text(snapshot.data![index].toString()))),
                   );
                 });
           },
