@@ -12,6 +12,7 @@ class ViewPage extends StatefulWidget {
 class _ViewPageState extends State<ViewPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late var datesFuture;
 
   @override
   void initState() {
@@ -23,6 +24,9 @@ class _ViewPageState extends State<ViewPage>
         vsync: this, duration: Duration(milliseconds: 1000));
 
     _controller.forward();
+
+    //store future
+    datesFuture = DatabaseHelper.instance.getDates();
   }
 
   @override
@@ -37,7 +41,7 @@ class _ViewPageState extends State<ViewPage>
     return Consumer<Date>(builder: (context, date, child) {
       return Scaffold(
         body: FutureBuilder(
-          future: DatabaseHelper.instance.getDates(),
+          future: datesFuture,
           builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
             if (!snapshot.hasData ||
                 snapshot.connectionState != ConnectionState.done) {
