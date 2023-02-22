@@ -60,7 +60,8 @@ class _ViewPageState extends State<ViewPage>
                     child: Dismissible(
                         key: UniqueKey(),
                         direction: DismissDirection.horizontal,
-                        onDismissed: (direction) {
+                        background: Container(color: Colors.red),
+                        onDismissed: (direction) async {
                           /*
                           final dateModel =
                               DateModel(dateText: date.dateList[index]); */
@@ -72,10 +73,10 @@ class _ViewPageState extends State<ViewPage>
                           //remove from list
                           date.dateList.removeAt(index);
 
-                          snapshot.data!.removeAt(index);
-
+                          //snapshot.data!.removeAt(index);
+                          
                           //remove from database
-                          DatabaseHelper.instance.remove(dateModel.id!);
+                          await DatabaseHelper.instance.remove(dateModel.id!);
                         },
                         child: ListTile(
                             title: Text(snapshot.data![index].toString()))),
