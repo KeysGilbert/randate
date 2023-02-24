@@ -27,14 +27,14 @@ class DatabaseHelper {
   //Create date table
   Future _onCreate(Database db, int version) async {
     await db
-        .execute("CREATE TABLE Dates (id INTEGER PRIMARY KEY, dateText TEXT)");
+        .execute("CREATE TABLE Dates (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, dateText TEXT)");
   }
 
   //add user input to table
   Future<int> add(DateModel dateModel) async {
     Database db = await instance.db;
-    final id = await db.insert("Dates", dateModel.toMap());
-    return dateModel.id = id;
+    final id = await db.insert("Dates", dateModel.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    return dateModel.id = id; 
     
   }
 
