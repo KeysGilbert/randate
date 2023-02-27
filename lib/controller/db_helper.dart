@@ -46,7 +46,7 @@ class DatabaseHelper {
 
   Future<List> getDates() async {
     Database db = await instance.db;
-    final data = await db.rawQuery("SELECT dateText FROM Dates");
+    final data = await db.rawQuery("SELECT * FROM Dates");
     if (data.isNotEmpty) {
       return data;
     } else {

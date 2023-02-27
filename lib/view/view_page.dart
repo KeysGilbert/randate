@@ -61,13 +61,13 @@ class _ViewPageState extends State<ViewPage>
                         key: UniqueKey(),
                         direction: DismissDirection.horizontal,
                         background: Container(color: Colors.red),
-                        onDismissed: (direction) async {
+                        onDismissed: (direction) {
                           /*
                           final dateModel =
                               DateModel(dateText: date.dateList[index]); */
-
+                          
                           Map<String, dynamic> dateJson =
-                              snapshot.data![index] as Map<String, dynamic>;
+                              snapshot.data![index] as Map<String, dynamic>; 
                           DateModel dateModel = DateModel.fromMap(dateJson);
 
                           //remove from list
@@ -75,8 +75,12 @@ class _ViewPageState extends State<ViewPage>
 
                           //snapshot.data!.removeAt(index);
                           
-                          //remove from database
-                          await DatabaseHelper.instance.remove(dateModel.id!);
+                          setState(() {
+
+                            //remove from database
+                            DatabaseHelper.instance.remove(dateModel.id!);
+                            datesFuture = DatabaseHelper.instance.getDates();
+                          });
                         },
                         child: ListTile(
                             title: Text(snapshot.data![index].toString()))),
