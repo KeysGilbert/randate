@@ -73,12 +73,15 @@ class _ViewPageState extends State<ViewPage>
                           //remove from list
                           date.dateList.removeAt(index);
 
-                          //snapshot.data!.removeAt(index);
+                          
                           
                           setState(() {
 
                             //remove from database
                             DatabaseHelper.instance.remove(dateModel.id!);
+
+                            //update future
+                            snapshot.data!.removeAt(index);
                             datesFuture = DatabaseHelper.instance.getDates();
                           });
                         },
