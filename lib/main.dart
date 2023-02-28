@@ -11,13 +11,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider( 
       create: (context) => Date(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Randate',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          useMaterial3: true
         ),
         home: HomePage(),
       ),
