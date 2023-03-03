@@ -65,18 +65,15 @@ class _ViewPageState extends State<ViewPage>
                           /*
                           final dateModel =
                               DateModel(dateText: date.dateList[index]); */
-                          
+
                           Map<String, dynamic> dateJson =
-                              snapshot.data![index] as Map<String, dynamic>; 
+                              snapshot.data![index] as Map<String, dynamic>;
                           DateModel dateModel = DateModel.fromMap(dateJson);
 
                           //remove from list
                           date.dateList.removeAt(index);
 
-                          
-                          
                           setState(() {
-
                             //remove from database
                             DatabaseHelper.instance.remove(dateModel.id!);
 
@@ -85,8 +82,11 @@ class _ViewPageState extends State<ViewPage>
                             datesFuture = DatabaseHelper.instance.getDates();
                           });
                         },
-                        child: ListTile(
-                            title: Text(snapshot.data![index]["dateText"].toString()))),
+                        child: Card(
+                          elevation: 3.0,
+                          child: ListTile(
+                              title: Text(snapshot.data![index]["dateText"].toString())),
+                        )),
                   );
                 });
           },
