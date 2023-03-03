@@ -86,7 +86,7 @@ class _ViewPageState extends State<ViewPage>
                           });
                         },
                         child: ListTile(
-                            title: Text(snapshot.data![index].toString()))),
+                            title: Text(snapshot.data![index]["dateText"].toString()))),
                   );
                 });
           },
