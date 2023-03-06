@@ -38,60 +38,59 @@ class _ViewPageState extends State<ViewPage>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Date>(builder: (context, date, child) {
-      return Scaffold(
-        body: FutureBuilder(
-          future: datesFuture,
-          builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-            if (!snapshot.hasData ||
-                snapshot.connectionState != ConnectionState.done) {
-              return CircularProgressIndicator();
-            }
+    return Scaffold(
+      body: FutureBuilder(
+        future: datesFuture,
+        builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+          if (!snapshot.hasData ||
+              snapshot.connectionState != ConnectionState.done) {
+            return CircularProgressIndicator();
+          }
 
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  return SlideTransition(
-                    position:
-                        Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0))
-                            .animate(CurvedAnimation(
-                                parent: _controller, curve: Curves.bounceIn)),
-                    child: Dismissible(
-                        key: UniqueKey(),
-                        direction: DismissDirection.horizontal,
-                        background: Container(color: Colors.red),
-                        onDismissed: (direction) {
-                          /*
-                          final dateModel =
-                              DateModel(dateText: date.dateList[index]); */
+          return ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return SlideTransition(
+                  position:
+                      Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0))
+                          .animate(CurvedAnimation(
+                              parent: _controller, curve: Curves.bounceIn)),
+                  child: Dismissible(
+                      key: UniqueKey(),
+                      direction: DismissDirection.horizontal,
+                      background: Container(color: Colors.red),
+                      onDismissed: (direction) {
+                        /*
+                        final dateModel =
+                            DateModel(dateText: date.dateList[index]); */
 
-                          Map<String, dynamic> dateJson =
-                              snapshot.data![index] as Map<String, dynamic>;
-                          DateModel dateModel = DateModel.fromMap(dateJson);
+                        Map<String, dynamic> dateJson =
+                            snapshot.data![index] as Map<String, dynamic>;
+                        DateModel dateModel = DateModel.fromMap(dateJson);
 
-                          //remove from list
-                          date.dateList.removeAt(index);
+                        //remove from list
+                        Provider.of<Date>(context, listen: false).remove(index);
 
-                          setState(() {
-                            //remove from database
-                            DatabaseHelper.instance.remove(dateModel.id!);
+                        setState(() {
+                          //remove from database
+                          DatabaseHelper.instance.remove(dateModel.id!);
 
-                            //update future
-                            snapshot.data!.removeAt(index);
-                            datesFuture = DatabaseHelper.instance.getDates();
-                          });
-                        },
-                        child: Card(
-                          elevation: 3.0,
-                          child: ListTile(
-                              title: Text(snapshot.data![index]["dateText"].toString())),
-                        )),
-                  );
-                });
-          },
-        ),
-      );
-    });
+                          //update future
+                          snapshot.data!.removeAt(index);
+                          datesFuture = DatabaseHelper.instance.getDates();
+                        });
+                      },
+                      child: Card(
+                        elevation: 3.0,
+                        child: ListTile(
+                            title: Text(
+                                snapshot.data![index]["dateText"].toString())),
+                      )),
+                );
+              });
+        },
+      ),
+    );
   }
 }

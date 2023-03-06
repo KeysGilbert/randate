@@ -41,5 +41,10 @@ class Date extends ChangeNotifier {
         .add(DateModel(dateText: _activityData['activity']));
   }
 
+  void remove(int index) {
+    dateList.removeAt(index);
+    notifyListeners();
+  }
+
   dynamic get activityData => _activityData;
 }
